@@ -27,7 +27,7 @@ void Hangman::choose_word() {
         guess = string(word.size(), '*');
     }
     else {
-        cout << "Не вдалося відкрити файл зі словами." << endl;
+        cout << "Failed to open the file with words." << endl;
         exit(1);
     }
 }
@@ -51,24 +51,24 @@ void Hangman::check_letter(char letter) {
 }
 
 void Hangman::show_stats() {
-    cout << "Статистика гри:" << endl;
-    cout << "Кількість використаних спроб: " << max_tries - tries << endl;
-    cout << "Кількість доступних спроб: " << tries << endl;
-    cout << "Час, витрачений на слово: ";
+    cout << "Game Statistics:" << endl;
+    cout << "Number of attempts used: " << max_tries - tries << endl;
+    cout << "Number of attempts left: " << tries << endl;
+    cout << "Time taken for the word: ";
 
     if (time_taken.count() >= 60) {
         int minutes = time_taken.count() / 60;
         int seconds = time_taken.count() % 60;
-        cout << minutes << " хвилин " << seconds << " секунд";
+        cout << minutes << " minutes " << seconds << " seconds";
     }
     else {
-        cout << time_taken.count() << " секунд";
+        cout << time_taken.count() << " seconds";
     }
 
     cout << endl;
 
-    cout << "Загадуване слово: " << word << endl;
-    cout << "Введені літери: ";
+    cout << "Secret word: " << word << endl;
+    cout << "Entered letters: ";
     for (char letter : letters) {
         cout << letter << " ";
     }
@@ -76,15 +76,15 @@ void Hangman::show_stats() {
 }
 
 void Hangman::start() {
-    cout << "Вітаємо у грі \"Вгадай слово\"!" << endl;
-    cout << "Ваше завдання - вгадати слово, яке я загадав." << endl;
-    cout << "У вас є " << max_tries << " спроб." << endl;
-    cout << "Починаємо!" << endl;
+    cout << "Welcome to the \"Guess the Word\" game!" << endl;
+    cout << "Your task is to guess the word I have chosen." << endl;
+    cout << "You have " << max_tries << " attempts." << endl;
+    cout << "Let's start!" << endl;
 
     auto start_time = chrono::high_resolution_clock::now();
 
     while (tries > 0 && !won) {
-        cout << "Слово: ";
+        cout << "Word: ";
         for (char letter : word) {
             if (find(letters.begin(), letters.end(), letter) != letters.end()) {
                 cout << letter << " ";
@@ -95,8 +95,8 @@ void Hangman::start() {
         }
         cout << endl;
 
-        cout << "Залишилось спроб: " << tries << endl;
-        cout << "Введіть літеру: ";
+        cout << "Attempts left: " << tries << endl;
+        cout << "Enter a letter: ";
         char letter;
         cin >> letter;
         check_letter(letter);
@@ -106,10 +106,10 @@ void Hangman::start() {
     time_taken = chrono::duration_cast<chrono::seconds>(end_time - start_time);
 
     if (won) {
-        cout << "Вітаємо, ви виграли!" << endl;
+        cout << "Congratulations, you won!" << endl;
     }
     else {
-        cout << "На жаль, ви програли." << endl;
+        cout << "Unfortunately, you lost." << endl;
     }
 
     show_stats();

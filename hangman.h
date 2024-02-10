@@ -15,7 +15,6 @@ public:
     Hangman(int max_tries = 10);
     void start();
 
-    // Accessors (if needed)
     GameState get_game_state() const;
     int get_remaining_tries() const;
     string get_display_word() const;
